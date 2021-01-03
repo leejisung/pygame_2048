@@ -22,8 +22,7 @@ num2048 = pg.image.load("num2048.png")
 
 
 num_dic = {1: num1, 2: num2, 4: num4, 8: num8, 16: num16, 32 : num32, 64: num64, 128: num128, 256: num256,512: num512,1024: num1024,2048: num2048}
-#data_board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-data_board = [[1,2,4,4],[2,2,2,2],[4,4,4,2],[8,2,2,8]]
+data_board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 view_board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 
 class can:
@@ -87,12 +86,26 @@ def right_arrow():
     left_arrow()
     board_reverse_x()
 
+def random_creat():
+    global data_board
+    zero_ARR = []
+    for i in range(4):
+        for j in range(4):
+            if data_board[i][j]==0:
+                zero_ARR+=[(i,j)]
+    loc = random.choice(zero_ARR)
+    num = random.choice([2,4])
+    data_board[loc[0]][loc[1]]=num
+            
+
 def update():
     for y in range(4):
         for x in range(4):
             view_board[y][x].view()
     pg.display.update()
 
+random_creat()
+random_creat()
 update()
 
 while True:
@@ -102,13 +115,17 @@ while True:
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_LEFT or event.key == ord('a'):
                 left_arrow()
+                random_creat()
                 update()
             if event.key == pg.K_RIGHT or event.key == ord('d'):
                 right_arrow()
+                random_creat()
                 update()
             if event.key == pg.K_UP or event.key == ord('w'):
                 up_arrow()
+                random_creat()
                 update()
             if event.key == pg.K_DOWN or event.key == ord('s'):
                 down_arrow()
+                random_creat()
                 update()
